@@ -9,17 +9,17 @@ const Login = () => {
         formState: { errors }
     } = useForm();
 
-    const onSubmit = async(data) => { 
-      
+    const onSubmit = async (data) => {
+
         // console.log(data);
         try {
-            
+
             const result = await LoginForm(data);
             if (result) {
 
                 console.log(result);
             }
-        } catch (error) { 
+        } catch (error) {
 
             console.log(error);
         }
