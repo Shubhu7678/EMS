@@ -1,26 +1,26 @@
 import { useForm } from 'react-hook-form';
 import { LoginForm } from '../services/operations/LoginApis';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const {
         handleSubmit,
         register,
+        reset,
         formState: { errors }
     } = useForm();
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const onSubmit = async (data) => {
 
         // console.log(data);
         try {
-
-            const result = await LoginForm(data);
-            if (result) {
-
-                console.log(result);
-            }
+          await LoginForm(data,dispatch,navigate,reset);
         } catch (error) {
-
             console.log(error);
         }
     }
