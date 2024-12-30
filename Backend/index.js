@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import authRoutes from './routes/auth.js';
+import departmentRoutes from './routes/department.js';
 
 app.use(cors({
     origin: 'http://localhost:3000',
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/department', departmentRoutes);
 
 const port = process.env.PORT || 4000;
 connectDB();

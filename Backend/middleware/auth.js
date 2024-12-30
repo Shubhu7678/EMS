@@ -34,7 +34,7 @@ export const auth = (req, res, next) => {
     }
 }
 
-export const admin = (req, res, next) => { 
+export const isAdmin = (req, res, next) => { 
 
     try {
          
