@@ -15,6 +15,7 @@ import AddDepartment from './components/core/auth/Dashboard/Department/AddDepart
 import UpdateDepartment from './components/core/auth/Dashboard/Department/UpdateDepartment';
 import EmployeeList from './components/core/auth/Dashboard/EmployeeList';
 import AddEmployee from './components/core/auth/Dashboard/Employee/AddEmployee';
+import UpdateEmployee from './components/core/auth/Dashboard/Employee/UpdateEmployee';
 
 const App = () => {
 
@@ -37,6 +38,7 @@ const App = () => {
 
           <Route path="/dashboard/employee" element={<EmployeeList />} />
           <Route path="/dashboard/add-employee" element={<AddEmployee/>} />
+          <Route path="/dashboard/edit-employee/:employeeId" element={<UpdateEmployee/>} />
           <Route path="/dashboard/department" element={<DepartmentList />} />
           <Route path="/dashboard/add-department" element={<AddDepartment/>} />
           <Route path="/dashboard/edit-department/:departmentId" element={<UpdateDepartment/>} />

@@ -14,3 +14,11 @@ export const departmentEndPoints = {
      UPDATE_DEPARTMENT_API: BASE_URL + '/api/v1/department/updateDepartment',
      DELETE_DEPARTMENT_API : BASE_URL + '/api/v1/department/deleteDepartment',
 }
+
+export const employeeEndPoints = {
+
+     ADD_EMPLOYEE_API: BASE_URL + '/api/v1/employee/add-employee',
+     GET_ALL_EMPLOYEE_LIST_API: BASE_URL + '/api/v1/employee/getAllEmployeesData',
+     GET_EMPLOYEE_DATA_BY_ID_API: BASE_URL + '/api/v1/employee/getEmployeeDataById',
+     UPDATE_EMPLOYEE_DATA_API: BASE_URL + '/api/v1/employee/updateEmployeeData',
+}

@@ -6,7 +6,6 @@ const AddEmployee = () => {
           <h1 className="text-2xl mb-4 font-semibold">Add Department</h1>
           <EmployeeForm />
         </div>
-      
     </div>
   )
 }

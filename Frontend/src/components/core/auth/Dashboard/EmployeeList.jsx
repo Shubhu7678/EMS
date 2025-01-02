@@ -1,6 +1,32 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { getAllEmployeeList } from "../../../../services/operations/EmployeeApis";
+import { setEmployeeList } from "../../../../slices/employeeSlice";
 
 const EmployeeList = () => {
+
+  const { employeeList } = useSelector((state) => state.employee);
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const BASE_URL = import.meta.env.VITE_BASE_URI;
+
+  useEffect(() => { 
+     
+    const fetchAllEmployeeData = async () => { 
+
+      const result = await getAllEmployeeList(token);
+      if (result) { 
+
+        console.log("Employee List", result);
+        dispatch(setEmployeeList(result));
+      }
+    }
+     
+    fetchAllEmployeeData();
+       
+  },[token,dispatch])
+  
   return (
     <div className="px-8 py-6 w-full h-full bg-gray-200">
       <div>
@@ -24,26 +50,47 @@ const EmployeeList = () => {
             <thead>
               <tr>
                 <th></th>
+                <th>Image</th>
                 <th>Name</th>
-                <th>Description</th>
-                <th>Action</th>
+                <th>D.O.B</th>
+                <th>Department</th>
+                <th className="text-center" >Action</th>
               </tr>
             </thead>
             <tbody>
 
-              <tr
-              // className={`${index % 2 === 0 ? "bg-base-200" : ""}`}
+              { 
+                employeeList.length > 0 && employeeList?.map((employee, index) => (
+                  
+                       <tr key={index}
+              className={`${index % 2 === 0 ? "bg-base-200" : ""}`}
               >
-                    <th>1</th>
-                    <td>First</td>
-                    <td>description</td>
+                    <th>{index + 1 }</th>
                     <td>
-                      <div className="flex gap-2 items-center">
+                      <img className="w-14 h-14 object-cover" src={BASE_URL + '/' + employee?.userId?.profileImage} alt="" />
+                      </td>
+                    <td>{ employee?.userId?.name }</td>
+                    <td>{ employee?.dateOfBirth}</td>
+                    <td>{ employee?.departmentId?.name}</td>
+                    <td className="text-center">
+                      <div className="flex gap-2 items-center justify-center">
                         <NavLink
                           className="px-3 py-2 rounded-md text-white bg-teal-500"
                           // to={`/dashboard/edit-department/${department._id}`}
                         >
+                          View
+                        </NavLink>
+                        <NavLink
+                          to={`/dashboard/edit-employee/${employee?._id}`}
+                          className="px-3 py-2 rounded-md text-white bg-orange-500"
+                        >
                           Edit
+                        </NavLink>
+                        <NavLink
+                          // onClick={() => handleDeleteDepartment(department?._id)}
+                          className="px-3 py-2 rounded-md text-white bg-green-500"
+                        >
+                          Salary
                         </NavLink>
                         <NavLink
                           // onClick={() => handleDeleteDepartment(department?._id)}
@@ -54,9 +101,9 @@ const EmployeeList = () => {
                       </div>
                     </td>
                   </tr>
+                ))
+              }
             </tbody>
-
-
           </table>
         </div>
       </div>
