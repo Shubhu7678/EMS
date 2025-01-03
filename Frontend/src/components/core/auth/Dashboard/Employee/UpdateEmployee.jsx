@@ -20,7 +20,7 @@ const UpdateEmployee = () => {
 
                 if (result) { 
 
-                    console.log(result);
+                
                     dispatch(setEditEmployee(true));
                     dispatch(setEmployee(result));
                 }

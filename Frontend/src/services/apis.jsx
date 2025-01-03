@@ -21,4 +21,5 @@ export const employeeEndPoints = {
      GET_ALL_EMPLOYEE_LIST_API: BASE_URL + '/api/v1/employee/getAllEmployeesData',
      GET_EMPLOYEE_DATA_BY_ID_API: BASE_URL + '/api/v1/employee/getEmployeeDataById',
      UPDATE_EMPLOYEE_DATA_API: BASE_URL + '/api/v1/employee/updateEmployeeData',
+     DELETE_EMPLOYEE_DATA : BASE_URL + '/api/v1/employee/deleteEmployee',
 }

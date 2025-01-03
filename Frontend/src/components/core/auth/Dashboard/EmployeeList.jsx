@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { getAllEmployeeList } from "../../../../services/operations/EmployeeApis";
+import { getAllEmployeeList, deleteEmployeeData } from "../../../../services/operations/EmployeeApis";
 import { setEmployeeList } from "../../../../slices/employeeSlice";
 
 const EmployeeList = () => {
@@ -11,22 +11,37 @@ const EmployeeList = () => {
   const dispatch = useDispatch();
   const BASE_URL = import.meta.env.VITE_BASE_URI;
 
-  useEffect(() => { 
-     
-    const fetchAllEmployeeData = async () => { 
+  const handleDeleteEmployee = async (id) => { 
 
-      const result = await getAllEmployeeList(token);
+    try {
+        
+      const result = await deleteEmployeeData(token, id);
       if (result) { 
 
-        console.log("Employee List", result);
+          dispatch(setEmployeeList(employeeList.filter((employee) => employee._id !== result._id)));
+      }
+
+    } catch (error) { 
+
+       console.log("Error in deleting employee", error.message);
+    }
+  }
+
+  useEffect(() => {
+
+    const fetchAllEmployeeData = async () => {
+
+      const result = await getAllEmployeeList(token);
+      if (result) {
+
         dispatch(setEmployeeList(result));
       }
     }
-     
+
     fetchAllEmployeeData();
-       
-  },[token,dispatch])
-  
+
+  }, [token, dispatch])
+
   return (
     <div className="px-8 py-6 w-full h-full bg-gray-200">
       <div>
@@ -59,24 +74,24 @@ const EmployeeList = () => {
             </thead>
             <tbody>
 
-              { 
+              {
                 employeeList.length > 0 && employeeList?.map((employee, index) => (
-                  
-                       <tr key={index}
-              className={`${index % 2 === 0 ? "bg-base-200" : ""}`}
-              >
-                    <th>{index + 1 }</th>
+
+                  <tr key={index}
+                    className={`${index % 2 === 0 ? "bg-base-200" : ""}`}
+                  >
+                    <th>{index + 1}</th>
                     <td>
                       <img className="w-14 h-14 object-cover" src={BASE_URL + '/' + employee?.userId?.profileImage} alt="" />
-                      </td>
-                    <td>{ employee?.userId?.name }</td>
-                    <td>{ employee?.dateOfBirth}</td>
-                    <td>{ employee?.departmentId?.name}</td>
+                    </td>
+                    <td>{employee?.userId?.name}</td>
+                    <td>{employee?.dateOfBirth}</td>
+                    <td>{employee?.departmentId?.name}</td>
                     <td className="text-center">
                       <div className="flex gap-2 items-center justify-center">
                         <NavLink
                           className="px-3 py-2 rounded-md text-white bg-teal-500"
-                          // to={`/dashboard/edit-department/${department._id}`}
+                      
                         >
                           View
                         </NavLink>
@@ -93,7 +108,7 @@ const EmployeeList = () => {
                           Salary
                         </NavLink>
                         <NavLink
-                          // onClick={() => handleDeleteDepartment(department?._id)}
+                          onClick={() => handleDeleteEmployee(employee?._id)}
                           className="px-3 py-2 rounded-md text-white bg-red-500"
                         >
                           Delete

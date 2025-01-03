@@ -122,7 +122,7 @@ const EmployeeForm = () => {
 
                     const result = await updateEmployeeData(formData, token, employee._id);
                     if (result) {
-                        console.log(result);
+                
                         dispatch(setEmployeeList(employeeList.map((employee) => employee._id === result._id ? result : employee)));
                         dispatch(setEditEmployee(false));
                         navigate('/dashboard/employee');

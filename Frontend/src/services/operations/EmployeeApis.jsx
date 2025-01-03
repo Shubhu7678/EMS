@@ -3,7 +3,7 @@ import { apiConnector } from '../apiConnector';
 import { employeeEndPoints} from '../apis';
 import toast from 'react-hot-toast';
 
-const { ADD_EMPLOYEE_API,GET_ALL_EMPLOYEE_LIST_API,GET_EMPLOYEE_DATA_BY_ID_API,UPDATE_EMPLOYEE_DATA_API } = employeeEndPoints;
+const { ADD_EMPLOYEE_API,GET_ALL_EMPLOYEE_LIST_API,GET_EMPLOYEE_DATA_BY_ID_API,UPDATE_EMPLOYEE_DATA_API,DELETE_EMPLOYEE_DATA } = employeeEndPoints;
 export const addEmployeeData = async(formData, token) => { 
 
     let result = [];
@@ -123,6 +123,36 @@ export const updateEmployeeData = async (formData, token, employeeId) => {
         console.log("Error in update Employee Data", error);
         toast.error(error.response.data.message);
 
+    }
+
+    toast.dismiss(toastId);
+    return result;
+}
+
+export const deleteEmployeeData = async (token, id) => { 
+
+    const toastId = toast.loading('Loading...');
+    let result = [];
+    try {
+           
+        const response = await apiConnector('DELETE', DELETE_EMPLOYEE_DATA + `/${id}`, {},
+            {
+                'Authorization': `Bearer ${token}`
+            }
+        )
+
+        if (!response.data.success) { 
+
+            throw new Error(response.data.message);
+        }
+
+        result = response.data.data;
+        toast.success(response.data.message);
+
+    } catch (error) { 
+
+        console.log("Error in delete Employee Data", error);
+        toast.error(error.response.data.message);
     }
 
     toast.dismiss(toastId);

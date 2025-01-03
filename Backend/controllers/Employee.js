@@ -1,5 +1,6 @@
 import Employee from "../models/Employee.js";
 import User from "../models/User.js";
+import Department from "../models/Department.js";
 import bcrypt from 'bcrypt';
 
 export const addEmployeeData = async (req, res) => {
@@ -28,7 +29,7 @@ export const addEmployeeData = async (req, res) => {
             });
         }
 
-        const hashedPassword = bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = await User.create({
             name: name,
@@ -50,6 +51,14 @@ export const addEmployeeData = async (req, res) => {
             designation: designation,
             salary: salary,
         });
+
+        const updateDepartment = await Department.findByIdAndUpdate(department,
+            {
+                $push: {
+                    employees: newEmployee._id
+                }
+            }
+        );
 
         const populatedEmployee = await Employee.findById(newEmployee._id)
             .populate('userId')
@@ -220,6 +229,58 @@ export const updateEmployeeData = async (req, res) => {
 
         res.status(500).json({
             
+            success: false,
+            message: "Internal Server Error",
+            error: error.message
+        })
+    }
+}
+
+export const deleteEmployeeData = async (req, res) => { 
+
+    try {
+          
+        const { id } = req.params;
+
+        if (!id) { 
+
+            return res.status(400).json({
+                
+                success: false,
+                message: "Employee Id is required",
+            });
+        }
+
+        const employee = await Employee.findByIdAndDelete(id);
+        const user = await User.findByIdAndDelete(employee.userId);
+        const departmentEmployee = await Department.findByIdAndUpdate(employee.departmentId,
+            {
+                $pull: {
+                    employees: employee._id
+                }
+            }
+        )
+        
+        if (!employee) { 
+
+            return res.status(404).json({
+
+                success: false,
+                message: "Employee not found",
+            })
+        }
+
+        return res.status(200).json({
+
+            success: true,
+            message: "Employee data deleted successfully",
+            data: employee,
+        });
+
+    } catch (error) { 
+
+        return res.status(500).json({
+
             success: false,
             message: "Internal Server Error",
             error: error.message

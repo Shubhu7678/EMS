@@ -11,7 +11,6 @@ export const LoginForm = async(data,dispatch,navigate,reset) => {
 
     const toastId = toast.loading("Loading...");
     
-    console.log("LOGIN API ::::",LOGIN_API);
     try {
 
         const response = await apiConnector('POST', LOGIN_API, data);
@@ -21,8 +20,6 @@ export const LoginForm = async(data,dispatch,navigate,reset) => {
             throw new Error(response.data.message);
         }
           
-        console.log(response);
-        // result = response.data.data;
         localStorage.setItem('token', JSON.stringify(response.data.token));
         localStorage.setItem('user', JSON.stringify(response.data.data));
        
