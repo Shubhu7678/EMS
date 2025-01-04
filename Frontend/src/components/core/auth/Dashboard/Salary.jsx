@@ -1,7 +1,12 @@
-
+import SalaryForm from './Salary/SalaryForm'
 const Salary = () => {
   return (
-    <div>Salary</div>
+    <div className="w-full h-full overflow-y-auto bg-gray-200 px-8 py-6" >
+      <div className="w-full rounded-md p-4 bg-white">
+          <h1 className="text-2xl mb-4 font-semibold">Add Employee</h1>
+          <SalaryForm/>
+        </div>
+    </div>
   )
 }
 

@@ -23,3 +23,8 @@ export const employeeEndPoints = {
      UPDATE_EMPLOYEE_DATA_API: BASE_URL + '/api/v1/employee/updateEmployeeData',
      DELETE_EMPLOYEE_DATA : BASE_URL + '/api/v1/employee/deleteEmployee',
 }
+
+export const salaryEndPoints = {
+
+     GET_ALL_EMPLOYEE_LIST_BY_DEPARTMENT_ID_API : BASE_URL + '/api/v1/salary/getAllEmployeesByDepartmentId',
+}
