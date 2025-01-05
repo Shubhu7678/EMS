@@ -102,7 +102,7 @@ const EmployeeList = () => {
                           Edit
                         </NavLink>
                         <NavLink
-                          // onClick={() => handleDeleteDepartment(department?._id)}
+                          to={`/dashboard/edit-employee/${employee?._id}`}
                           className="px-3 py-2 rounded-md text-white bg-green-500"
                         >
                           Salary

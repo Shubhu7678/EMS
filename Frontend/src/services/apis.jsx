@@ -26,5 +26,6 @@ export const employeeEndPoints = {
 
 export const salaryEndPoints = {
 
-     GET_ALL_EMPLOYEE_LIST_BY_DEPARTMENT_ID_API : BASE_URL + '/api/v1/salary/getAllEmployeesByDepartmentId',
+     GET_ALL_EMPLOYEE_LIST_BY_DEPARTMENT_ID_API: BASE_URL + '/api/v1/salary/getAllEmployeesByDepartmentId',
+     ADD_SALARY_DATA_API : BASE_URL + '/api/v1/salary/addSalary',
 }

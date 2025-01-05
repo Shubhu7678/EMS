@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { getAllDepartmentList } from "../../../../../services/operations/DepartmentApis";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { getAllEmployeesByDepartmentId } from "../../../../../services/operations/SalaryApis";
+import { getAllEmployeesByDepartmentId,addSalaryData } from "../../../../../services/operations/SalaryApis";
 
 const SalaryForm = () => {
 
@@ -55,9 +55,17 @@ const SalaryForm = () => {
         }
     }
 
-    const onSubmit = (data) => {
+    const onSubmit = async(data) => {
 
-        console.log(data);
+        // console.log(data);  
+        try {
+
+            await addSalaryData(token, data);
+            
+        } catch (error) { 
+
+            console.log("Error occured in handleSubmit in SalaryForm", error);
+        }
 
     }
 
