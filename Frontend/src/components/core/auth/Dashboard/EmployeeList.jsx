@@ -102,7 +102,7 @@ const EmployeeList = () => {
                           Edit
                         </NavLink>
                         <NavLink
-                          to={`/dashboard/edit-employee/${employee?._id}`}
+                          to={`/dashboard/salary/${employee?._id}`}
                           className="px-3 py-2 rounded-md text-white bg-green-500"
                         >
                           Salary

@@ -4,6 +4,7 @@ import { FcDepartment } from "react-icons/fc";
 import { FcLeave } from "react-icons/fc";
 import { BsCashCoin } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
+import { CgProfile } from "react-icons/cg";
 export const data = [
     {
         title: 'Dashboard',
@@ -52,5 +53,47 @@ export const data = [
             <IoSettingsOutline />
         ),
         path: '/dashboard/settings',
+    },
+  
+    // Employee data 
+    {
+        title: 'Dashboard',
+        role: 'employee',
+        icon: (
+            <MdOutlineDashboardCustomize />
+        ),
+        path: '/employee-dashboard/my-dashboard',
+    },
+    {
+        title: 'My Profile',
+        role: 'employee',
+        icon: (
+            <CgProfile />
+        ),
+        path: '/employee-dashboard/my-profile',
+    },
+    {
+        title: 'Leave',
+        role: 'employee',
+        icon: (
+            <FcLeave />
+        ),
+        path: '/employee-dashboard/leave',
+    },
+    {
+        title: 'Salary',
+        role: 'employee',
+        icon: (
+            <BsCashCoin />
+        ),
+        path: '/employee-dashboard/salary',
+    },
+    {
+        title: 'Settings',
+        role: 'employee',
+        icon: (
+            <IoSettingsOutline />
+        ),
+        path: '/employee-dashboard/settings',
     },
 ]

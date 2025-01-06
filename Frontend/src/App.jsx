@@ -16,6 +16,13 @@ import UpdateDepartment from './components/core/auth/Dashboard/Department/Update
 import EmployeeList from './components/core/auth/Dashboard/EmployeeList';
 import AddEmployee from './components/core/auth/Dashboard/Employee/AddEmployee';
 import UpdateEmployee from './components/core/auth/Dashboard/Employee/UpdateEmployee';
+import SalaryHistory from './components/core/auth/Dashboard/Salary/SalaryHistory';
+import DashboardEmployee from './components/core/EmployeeDashboard/DashboardEmployee';
+import EmployeeProfile from './components/core/EmployeeDashboard/EmployeeProfile';
+import EmployeeLeave from './components/core/EmployeeDashboard/EmployeeLeave';
+import EmployeeSalary from './components/core/EmployeeDashboard/EmployeeSalary';
+import EmployeeSettings from './components/core/EmployeeDashboard/EmployeeSettings';
+
 
 const App = () => {
 
@@ -35,23 +42,31 @@ const App = () => {
         }
         >
           <Route path="/dashboard/admin-dashboard" element={<MyDashboard />} />
-
           <Route path="/dashboard/employee" element={<EmployeeList />} />
-          <Route path="/dashboard/add-employee" element={<AddEmployee/>} />
-          <Route path="/dashboard/edit-employee/:employeeId" element={<UpdateEmployee/>} />
+          <Route path="/dashboard/add-employee" element={<AddEmployee />} />
+          <Route path="/dashboard/edit-employee/:employeeId" element={<UpdateEmployee />} />
           <Route path="/dashboard/department" element={<DepartmentList />} />
-          <Route path="/dashboard/add-department" element={<AddDepartment/>} />
-          <Route path="/dashboard/edit-department/:departmentId" element={<UpdateDepartment/>} />
+          <Route path="/dashboard/add-department" element={<AddDepartment />} />
+          <Route path="/dashboard/edit-department/:departmentId" element={<UpdateDepartment />} />
           <Route path="/dashboard/leave" element={<Leave />} />
           <Route path="/dashboard/salary" element={<Salary />} />
+          <Route path="/dashboard/salary/:employeeId" element={<SalaryHistory />} />
           <Route path="/dashboard/settings" element={<Settings />} />
         </Route>
-        <Route path="/employee-dashboard" element={
-          <ProtectedRoute allowedRoles={['admin', 'employee']}>
+
+        {/* Employee Dashboard  */}
+        <Route element={
+          <ProtectedRoute allowedRoles={['employee']}>
             <EmployeeDashboard />
           </ProtectedRoute>
+        }>
+          <Route path="/employee-dashboard/my-dashboard" element={<DashboardEmployee />} />
+          <Route path="/employee-dashboard/my-profile" element={<EmployeeProfile/>} />
+          <Route path="/employee-dashboard/leave" element={<EmployeeLeave />} />
+          <Route path="/employee-dashboard/salary" element={<EmployeeSalary />} />
+          <Route path="/employee-dashboard/settings" element={<EmployeeSettings />} />
 
-        } />
+        </Route>
       </Routes>
       <Toaster />
     </>

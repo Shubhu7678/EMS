@@ -7,46 +7,53 @@ import { setUser } from '../../slices/profileSlice';
 
 const { LOGIN_API } = authEndPoints;
 
-export const LoginForm = async(data,dispatch,navigate,reset) => {
+export const LoginForm = async (data, dispatch, navigate, reset) => {
 
-    const toastId = toast.loading("Loading...");
-    
-    try {
+  const toastId = toast.loading("Loading...");
 
-        const response = await apiConnector('POST', LOGIN_API, data);
+  try {
 
-        if (!response.data.success) { 
+    const response = await apiConnector('POST', LOGIN_API, data);
 
-            throw new Error(response.data.message);
-        }
-          
-        localStorage.setItem('token', JSON.stringify(response.data.token));
-        localStorage.setItem('user', JSON.stringify(response.data.data));
-       
-        dispatch(setToken(response.data.token));
-        dispatch(setUser(response.data.data));
-        reset();
-        navigate('/dashboard/admin-dashboard');
-        toast.success(response.data.message);
+    if (!response.data.success) {
 
-    } catch (error) { 
-
-        console.log("Error in Login", error);
-        toast.error(error.response.data.message);
+      throw new Error(response.data.message);
     }
 
-    toast.dismiss(toastId);
+    localStorage.setItem('token', JSON.stringify(response.data.token));
+    localStorage.setItem('user', JSON.stringify(response.data.data));
+
+    dispatch(setToken(response.data.token));
+    dispatch(setUser(response.data.data));
+    reset();
+    if (response.data.data.role === "admin") {
+
+      navigate('/dashboard/admin-dashboard');
+
+    } else {
+
+      navigate('/employee-dashboard/my-dashboard');
+    }
+    toast.success(response.data.message);
+
+  } catch (error) {
+
+    console.log("Error in Login", error);
+    toast.error(error.response.data.message);
+  }
+
+  toast.dismiss(toastId);
 }
 
 export const logout = (navigate, dispatch) => {
-    
+
   const toastId = toast.loading("Loading...");
   dispatch(setUser(null));
   dispatch(setToken(null));
   localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    toast.success("Logout Successfully");
-    toast.dismiss(toastId);
-  setTimeout(() => navigate('/login'), 0);
+  localStorage.removeItem('user');
+  toast.success("Logout Successfully");
+  toast.dismiss(toastId);
+  navigate('/login')
 
 };

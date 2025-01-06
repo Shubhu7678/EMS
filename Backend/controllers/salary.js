@@ -58,7 +58,7 @@ export const addSalaryData = async (req, res) => {
         const netSalary = parseInt(basicSalary) + parseInt(allowances) - parseInt(deduction);
 
         const salary = await Salary.create({
-            userId: employeeId,
+            employeeId: employeeId,
             basicSalary,
             allowances,
             deduction,
@@ -79,6 +79,42 @@ export const addSalaryData = async (req, res) => {
             success: false,
             message: 'Internal Server Error',
             error : error.message,
+        })
+    }
+}
+
+export const getSalaryHistory = async (req, res) => { 
+
+    try {
+           
+        const { employeeId } = req.params;
+
+        if (!employeeId) { 
+
+            return res.status(401).json({
+
+                success: false,
+                message : 'Employee Id is required'
+            })
+        }
+
+        const salary = await Salary.find({ employeeId: employeeId })
+                        .populate('employeeId');
+
+        return res.status(200).json({
+
+            success: true,
+            message: 'Salary history fetched successfully',
+            data: salary
+        });
+
+    } catch (error) { 
+
+        return res.status(500).json({
+
+            success: false,
+            message: 'Internal Server Error',
+            error : error.message
         })
     }
 }

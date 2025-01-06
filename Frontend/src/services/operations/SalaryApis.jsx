@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 import { salaryEndPoints } from "../apis";
 
-const { GET_ALL_EMPLOYEE_LIST_BY_DEPARTMENT_ID_API,ADD_SALARY_DATA_API } = salaryEndPoints;
+const { GET_ALL_EMPLOYEE_LIST_BY_DEPARTMENT_ID_API,ADD_SALARY_DATA_API,GET_SALARY_HISTORY_API } = salaryEndPoints;
 
 export const getAllEmployeesByDepartmentId = async(token,departmentId) => { 
 
@@ -55,6 +55,35 @@ export const addSalaryData = async (token, data) => {
     } catch (error) { 
 
         console.log("Error occured in Add Salary:", error);
+        toast.error(error.response.data.message);
+    }
+
+    toast.dismiss(toastId);
+    return result;
+}
+
+export const getSalaryHistory = async (token, employeeId) => { 
+
+    let result = [];
+    const toastId = toast.loading('Loading...');
+    try {
+
+        const response = await apiConnector('GET', GET_SALARY_HISTORY_API + `/${employeeId}`, {},
+            {
+                'Authorization': `Bearer ${token}`
+            }
+        );
+
+        if (!response.data.success) {
+            
+            throw new Error(response.data.message);
+        }
+
+        result = response.data.data;
+
+    } catch (error) { 
+
+        console.log("Error in getSalaryHistory", error);
         toast.error(error.response.data.message);
     }
 
