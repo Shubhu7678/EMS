@@ -1,7 +1,15 @@
 import express from 'express';
 const router = express.Router();
 
-import { addEmployeeData,getAllEmployeesData,getEmployeeDataById, updateEmployeeData,deleteEmployeeData } from '../controllers/Employee.js';
+import {
+    addEmployeeData,
+    getAllEmployeesData,
+    getEmployeeDataById,
+    updateEmployeeData,
+    deleteEmployeeData,
+    getEmployeeDataByUserId,
+} from '../controllers/Employee.js';
+
 import { auth, isAdmin, isEmployee } from '../middleware/auth.js';
 import multer from '../middleware/multer.js';
 
@@ -10,5 +18,6 @@ router.get('/getAllEmployeesData', auth, isAdmin, getAllEmployeesData);
 router.get('/getEmployeeDataById/:employeeId', auth, isAdmin, getEmployeeDataById);
 router.put('/updateEmployeeData/:id', auth, isAdmin, updateEmployeeData);
 router.delete('/deleteEmployee/:id', auth, isAdmin, deleteEmployeeData);
+router.get('/getEmployeeDataByUserId/:userId',auth,isEmployee,getEmployeeDataByUserId);
 
 export default router;

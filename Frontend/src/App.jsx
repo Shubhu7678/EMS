@@ -22,6 +22,7 @@ import EmployeeProfile from './components/core/EmployeeDashboard/EmployeeProfile
 import EmployeeLeave from './components/core/EmployeeDashboard/EmployeeLeave';
 import EmployeeSalary from './components/core/EmployeeDashboard/EmployeeSalary';
 import EmployeeSettings from './components/core/EmployeeDashboard/EmployeeSettings';
+import EmployeeAddLeave from './components/core/EmployeeDashboard/Leave/EmployeeAddLeave';
 
 
 const App = () => {
@@ -61,8 +62,10 @@ const App = () => {
           </ProtectedRoute>
         }>
           <Route path="/employee-dashboard/my-dashboard" element={<DashboardEmployee />} />
-          <Route path="/employee-dashboard/my-profile" element={<EmployeeProfile/>} />
+          <Route path="/employee-dashboard/my-profile" element={<EmployeeProfile />} />
           <Route path="/employee-dashboard/leave" element={<EmployeeLeave />} />
+          <Route path="/employee-dashboard/leave/add-leave" element={<EmployeeAddLeave />} />
+
           <Route path="/employee-dashboard/salary" element={<EmployeeSalary />} />
           <Route path="/employee-dashboard/settings" element={<EmployeeSettings />} />
 

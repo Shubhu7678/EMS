@@ -13,6 +13,8 @@ const Navbar = () => {
     // const dispatch = useDispatch();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const BASE_URL = import.meta.env.VITE_BASE_URI;
+    const Image_url = BASE_URL + '/' + user?.profileImage;
 
     const handleLogout = () => {
 
@@ -39,8 +41,9 @@ const Navbar = () => {
                                             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                                                 <div className="w-9 rounded-full">
                                                     <img
+                                                        className="object-cover"
                                                         alt="Tailwind CSS Navbar component"
-                                                        src={user.userImage} />
+                                                        src={Image_url} />
                                                 </div>
                                             </div>
                                             <ul

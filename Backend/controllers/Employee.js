@@ -287,3 +287,39 @@ export const deleteEmployeeData = async (req, res) => {
         })
     }
 }
+
+export const getEmployeeDataByUserId = async (req, res) => { 
+
+    try {
+       
+        const { userId } = req.params;
+
+        if (!userId) { 
+
+            return res.status(401).json({
+                success: false,
+                message: "User Id is required",
+            })
+        }
+
+        const employeeData = await Employee.find({userId})
+            .populate('userId')
+            .populate('departmentId');
+        
+        return res.status(200).json({
+            success: true,
+            message: "Employee data fetched successfully",
+            data: employeeData
+        });
+           
+    } catch (error) { 
+     
+        return res.status(500).json({
+
+            success: false,
+            message: "Internal Server Error",
+            error : error.message
+        })
+
+    }
+}
