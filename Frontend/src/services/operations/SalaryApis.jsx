@@ -2,8 +2,13 @@ import { apiConnector } from "../apiConnector";
 import toast from 'react-hot-toast';
 
 import { salaryEndPoints } from "../apis";
+import axios from "axios";
 
-const { GET_ALL_EMPLOYEE_LIST_BY_DEPARTMENT_ID_API,ADD_SALARY_DATA_API,GET_SALARY_HISTORY_API } = salaryEndPoints;
+const { GET_ALL_EMPLOYEE_LIST_BY_DEPARTMENT_ID_API,
+    ADD_SALARY_DATA_API,
+    GET_SALARY_HISTORY_API,
+    GET_SALARY_HISTORY_BY_EMPLOYEE_ID_API
+} = salaryEndPoints;
 
 export const getAllEmployeesByDepartmentId = async(token,departmentId) => { 
 
@@ -84,6 +89,35 @@ export const getSalaryHistory = async (token, employeeId) => {
     } catch (error) { 
 
         console.log("Error in getSalaryHistory", error);
+        toast.error(error.response.data.message);
+    }
+
+    toast.dismiss(toastId);
+    return result;
+}
+
+export async function getEmployeeSalaryByEmployeeId(token, userId) {
+
+    let result = [];
+    const toastId = toast.loading('Loading...');
+
+    try {
+          
+        const response = await axios.get(GET_SALARY_HISTORY_BY_EMPLOYEE_ID_API + `/${userId}`, {
+            headers: {
+                Authorization : `Bearer ${token}`
+            }
+        })
+
+        if(!response.data.success) {
+
+            throw new Error(response.data.message);
+        }
+
+        result = response.data.data;
+    } catch (error) { 
+
+        console.log("Error in getEmployeeSalaryByEmployeeId", error);
         toast.error(error.response.data.message);
     }
 

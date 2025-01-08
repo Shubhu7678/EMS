@@ -55,5 +55,5 @@ export const logout = (navigate, dispatch) => {
   toast.success("Logout Successfully");
   toast.dismiss(toastId);
   navigate('/login')
-
 };
+

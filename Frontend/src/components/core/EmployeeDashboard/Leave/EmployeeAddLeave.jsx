@@ -1,7 +1,9 @@
 
 import { useForm } from "react-hook-form"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { employeeAddLeave } from "../../../../services/operations/LeaveApis";
+import { setLeaveList } from "../../../../slices/leaveSlice";
+import { useNavigate } from "react-router-dom";
     
 const EmployeeAddLeave = () => {
 
@@ -11,6 +13,10 @@ const EmployeeAddLeave = () => {
     } = useForm();
 
     const { token } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const { leaveList } = useSelector((state) => state.leave);
+    const navigate = useNavigate();
+
 
     const onSubmit = async(data) => {
 
@@ -19,7 +25,9 @@ const EmployeeAddLeave = () => {
             const result = await employeeAddLeave(token, data);
             if (result) { 
 
-                console.log(result);
+                dispatch(setLeaveList([...leaveList, result]));
+                
+                navigate("/employee-dashboard/leave");
             }
 
         } catch (error) { 

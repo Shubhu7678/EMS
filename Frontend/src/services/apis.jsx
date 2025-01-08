@@ -30,6 +30,7 @@ export const salaryEndPoints = {
      GET_ALL_EMPLOYEE_LIST_BY_DEPARTMENT_ID_API: BASE_URL + '/api/v1/salary/getAllEmployeesByDepartmentId',
      ADD_SALARY_DATA_API: BASE_URL + '/api/v1/salary/addSalary',
      GET_SALARY_HISTORY_API: BASE_URL + '/api/v1/salary/getSalaryHistory',
+     GET_SALARY_HISTORY_BY_EMPLOYEE_ID_API: BASE_URL + '/api/v1/salary/getEmployeeSalaryByEmployeeId'
 }
 
 export const employeeLeaveEndPoints = {
@@ -37,4 +38,10 @@ export const employeeLeaveEndPoints = {
      EMPLOYEE_ADD_LEAVE_API: BASE_URL + '/api/v1/leave/addLeave',
      EMPLOYEE_GET_ALL_LEAVE_API: BASE_URL + '/api/v1/leave/getAllLeave',
      EMPLOYEE_GET_LEAVE_BY_ID_API: BASE_URL + '/api/v1/leave/getLeaveById',
+     GET_EMPLOYEE_LEAVES_API: BASE_URL + '/api/v1/leave/getEmployeeLeaves',
+}
+
+export const SettingEndPoints = {
+
+     CHANGE_PASSWORD_API : BASE_URL + '/api/v1/auth/changePassword'
 }

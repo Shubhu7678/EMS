@@ -7,7 +7,7 @@ export const getAllEmployeesByDepartmentId = async (req, res) => {
     try {
 
         const { departmentId } = req.params;
-        // consoel.log(departmentId);
+        
         if (!departmentId) { 
 
             return res.status(401).json({
@@ -106,6 +106,43 @@ export const getSalaryHistory = async (req, res) => {
             success: true,
             message: 'Salary history fetched successfully',
             data: salary
+        });
+
+    } catch (error) { 
+
+        return res.status(500).json({
+
+            success: false,
+            message: 'Internal Server Error',
+            error : error.message
+        })
+    }
+}
+
+export const getEmployeeSalaryHistory = async (req, res) => { 
+
+    try {
+       
+        const { userId } = req.params;
+
+        if (!userId) { 
+
+            return res.status(401).json({
+
+                success: false,
+                message: 'User Id is required'
+            })
+        }
+        
+        const employeeDetails = await Employee.findOne({ userId: userId });
+        
+        const salaryDetails = await Salary.find({ employeeId: employeeDetails._id });
+          
+        return res.status(200).json({
+
+            success: true,
+            message: 'Salary history fetched successfully',
+            data: salaryDetails
         });
 
     } catch (error) { 

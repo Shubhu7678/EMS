@@ -1,6 +1,37 @@
 
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setLeaveList } from "../../../slices/leaveSlice";
+import { getEmployeeLeaves } from "../../../services/operations/LeaveApis";
 const EmployeeLeave = () => {
+
+  const { user } = useSelector((state) => state.profile);
+  const { token } = useSelector((state) => state.auth);
+  const { leaveList } = useSelector((state) => state.leave);
+  const dispatch = useDispatch();
+
+  useEffect(() => { 
+
+    const fetchEmployeeLeaves = async () => { 
+
+      try {
+          
+        const result = await getEmployeeLeaves(token, user?._id);
+        if (result) { 
+
+          dispatch(setLeaveList(result));
+          console.log(result);
+        }
+      } catch (error) { 
+
+          console.log("Error in fetching employee leaves", error);
+      }
+    }
+
+    fetchEmployeeLeaves();
+        
+  },[dispatch, token, user]);
   return (
     <div className="w-full h-[calc(100vh-64px)] bg-gray-200 overflow-y-auto" >
       <div className="p-4">
@@ -37,19 +68,21 @@ const EmployeeLeave = () => {
                     <th>STATUS</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr
-                >
-                  <th>1</th>
-                  <td>asdf </td>
-                  <td>asdf</td>
-                  <td>asdf</td>
-                  <td>asdf</td>
-                  <td className="text-center">
-                    asdfff
-                    </td>
-                  <td>asdf</td>
+                <tbody>
+                  { 
+                    leaveList.map((leave, index) => (
+                      <tr key={index}>
+                  <th>{index + 1}</th>
+                  <td>{leave?.leaveType} </td>
+                        <td>{ leave?.startDate}</td>
+                        <td>{ leave?.endDate}</td>
+                        <td>{leave?.reason }</td>
+                        <td className="">{leave?.createdAt.split('T')[0] }</td>
+                  <td>{leave?.status}</td>
                 </tr>
+                    ))
+                  }
+                
               </tbody>
             </table>
           </div>

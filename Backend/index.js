@@ -13,6 +13,7 @@ import authRoutes from './routes/auth.js';
 import departmentRoutes from './routes/department.js';
 import employeeRoutes from './routes/employee.js';
 import salaryRoutes from './routes/salary.js';
+import leaveRoutes from './routes/leave.js';
 
 app.use(cors({
   origin: 'http://localhost:3000',
@@ -34,6 +35,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/department', departmentRoutes);
 app.use('/api/v1/employee', employeeRoutes);
 app.use('/api/v1/salary', salaryRoutes);
+app.use('/api/v1/leave', leaveRoutes);
 
 const port = process.env.PORT || 4000;
 connectDB();
