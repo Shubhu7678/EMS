@@ -113,6 +113,12 @@ const EmployeeList = () => {
                         >
                           Delete
                         </NavLink>
+                        <NavLink
+                          to={`/dashboard/leaves-history/${employee?._id}`}
+                          className="px-3 py-2 rounded-md text-white bg-yellow-500"
+                        >
+                          Leave
+                        </NavLink>
                       </div>
                     </td>
                   </tr>

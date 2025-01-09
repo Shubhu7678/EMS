@@ -4,6 +4,9 @@ const initialState = {
 
     leaveList: [],
     leave: [],
+    acceptedLeaves: [],
+    rejectedLeaves: [],
+    pendingLeaves: [],
     editLeave: false,
     loading : false,
 }
@@ -20,6 +23,18 @@ const leaveSlice = createSlice({
         setLeave: (state, action) => {
 
             state.leave = action.payload;
+        },
+        setAcceptedLeaves: (state, action) => {
+            
+            state.acceptedLeaves = action.payload;
+        },
+        setRejectedLeaves: (state, action) => {
+            
+            state.rejectedLeaves = action.payload;
+        },
+        setPendingLeaves: (state, action) => {
+            
+            state.pendingLeaves = action.payload;
         },
         setEditLeave: (state, action) => {            
 

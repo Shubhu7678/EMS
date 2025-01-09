@@ -36,9 +36,11 @@ export const salaryEndPoints = {
 export const employeeLeaveEndPoints = {
 
      EMPLOYEE_ADD_LEAVE_API: BASE_URL + '/api/v1/leave/addLeave',
-     EMPLOYEE_GET_ALL_LEAVE_API: BASE_URL + '/api/v1/leave/getAllLeave',
-     EMPLOYEE_GET_LEAVE_BY_ID_API: BASE_URL + '/api/v1/leave/getLeaveById',
      GET_EMPLOYEE_LEAVES_API: BASE_URL + '/api/v1/leave/getEmployeeLeaves',
+     GET_ALL_LEAVES_API: BASE_URL + '/api/v1/leave/getAllLeaves',
+     GET_LEAVE_DATA_BY_ID_API: BASE_URL + '/api/v1/leave/getLeaveById',
+     CHANGE_LEAVE_STATUS_API: BASE_URL + '/api/v1/leave/changeLeaveStatus',
+     GET_EMPLOYEE_LEAVES_BY_EMPLOYEE_ID_API: BASE_URL + '/api/v1/leave/getEmployeeLeavesByEmployeeId'
 }
 
 export const SettingEndPoints = {

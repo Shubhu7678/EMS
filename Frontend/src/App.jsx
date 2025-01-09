@@ -23,6 +23,9 @@ import EmployeeLeave from './components/core/EmployeeDashboard/EmployeeLeave';
 import EmployeeSalary from './components/core/EmployeeDashboard/EmployeeSalary';
 import EmployeeSettings from './components/core/EmployeeDashboard/EmployeeSettings';
 import EmployeeAddLeave from './components/core/EmployeeDashboard/Leave/EmployeeAddLeave';
+import LeaveProfile from './components/core/auth/Dashboard/Leave/leaveProfile';
+import LeaveHistory from './components/core/auth/Dashboard/Leave/LeaveHistory';
+
 
 
 const App = () => {
@@ -50,6 +53,9 @@ const App = () => {
           <Route path="/dashboard/add-department" element={<AddDepartment />} />
           <Route path="/dashboard/edit-department/:departmentId" element={<UpdateDepartment />} />
           <Route path="/dashboard/leave" element={<Leave />} />
+           <Route path="/dashboard/leave/:leaveId" element={<LeaveProfile />} />
+           <Route path="/dashboard/leaves-history/:employeeId" element={<LeaveHistory/>} />
+        
           <Route path="/dashboard/salary" element={<Salary />} />
           <Route path="/dashboard/salary/:employeeId" element={<SalaryHistory />} />
           <Route path="/dashboard/settings" element={<Settings />} />
