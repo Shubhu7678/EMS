@@ -1,4 +1,8 @@
 import User from '../models/User.js';
+import Employee from '../models/Employee.js';
+import Department from '../models/Department.js';
+import Leave from '../models/Leave.js';
+import Salary from '../models/Salary.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
@@ -132,6 +136,53 @@ export const changePassword = async (req, res) => {
             message: "Password changed successfully",
         });
         
+    } catch (error) { 
+
+        return res.status(500).json({
+
+            success: false,
+            message: "Internal Server Error",
+            error: error.message,
+        })
+    }
+}
+
+export const getDashboardOverview = async (req, res) => { 
+
+    try {
+
+        const totalEmployees = await Employee.countDocuments();
+        const totalDepartments = await Department.countDocuments();
+
+        const totalSalary = await Employee.aggregate([
+            { $group: { _id: null, totalSalary: { $sum: "$salary" } } }
+        ])
+
+        const employeeAppliedForLeave = await Leave.distinct('employeeId');
+
+        const leaveStatus = await Leave.aggregate([
+            { $group: { _id: '$status', count: { $sum: 1 } } }
+        ])
+
+        const leaveSummary = {
+
+            totalLeaves: employeeAppliedForLeave.length,
+            pendingLeaves: leaveStatus.find((leave) => leave._id === 'pending')?.count || 0,
+            approvedLeaves: leaveStatus.find((leave) => leave._id === 'approved')?.count || 0,
+            rejectedLeaves: leaveStatus.find((leave) => leave._id === 'rejected')?.count || 0
+        }
+
+        return res.status(200).json({
+
+            success: true,
+            totalEmployees,
+            totalDepartments,
+            totalSalary: totalSalary[0]?.totalSalary || 0,
+            leaveSummary
+           
+        })
+
+
     } catch (error) { 
 
         return res.status(500).json({

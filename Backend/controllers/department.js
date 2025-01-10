@@ -180,7 +180,8 @@ export const deleteDepartment = async (req, res) => {
             });
         }
 
-        const departmentData = await Department.findByIdAndDelete(departmentId);
+        const departmentData = await Department.findById(departmentId);
+        await departmentData.deleteOne();
 
         if (!departmentData) { 
 

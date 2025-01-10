@@ -47,3 +47,8 @@ export const SettingEndPoints = {
 
      CHANGE_PASSWORD_API : BASE_URL + '/api/v1/auth/changePassword'
 }
+
+export const DashboardEndPoints = {
+
+      GET_DASHBOARD_OVERVIEW_API : BASE_URL + '/api/v1/auth/getDashboardOverview'
+}
